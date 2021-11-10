@@ -35,7 +35,8 @@ A Hotel Reservation System having scheduling calendar component and room statuse
 
 #### - This is the check-in modal created using bootstap. It takes personal, stay, payment and tariff information of guests and stores it into local storage of web browser.
 
-![2](/uploads/265efb025ebb3ef89300206b117271ec/2.png)
+![2](https://user-images.githubusercontent.com/69115040/141167975-e4cba7b6-6bf8-47de-9f6e-046e7fdd2fa2.png)
+
 
 
 #### - We can access details of check-in modal in local storage. It is in form of an array. Steps to local storage:
@@ -43,40 +44,40 @@ A Hotel Reservation System having scheduling calendar component and room statuse
 2.  Go to application bar
 3.  You will find storage section in left panel 
 
-![3](/uploads/84afca1c1a3491af8aa20e27bc7dc52c/3.png)
+![3](https://user-images.githubusercontent.com/69115040/141168135-90c047ad-d6a3-45d4-ab62-6aba3e08b029.png)
 
 
 #### - This is the assign service modal which is also created using bootstrap. It takes service information and stores into local storage.
 
-![4](/uploads/53043038114ab59bb976363519e17e5e/4.png)
+![4](https://user-images.githubusercontent.com/69115040/141168199-50784603-65af-4a97-81e7-4d77bd00c4b1.png)
 
 
 #### - We can access details of check-in modal in local storage. It is in form of an array. Steps to local storage is aready shown above.
 
-![5](/uploads/93740af00a2da27de5cfd2bc0f860780/5.png)
+![5](https://user-images.githubusercontent.com/69115040/141168262-f4891f87-6b56-4761-9cb7-9119183ac0bf.png)
 
 
 #### - This type of slots with information like guest name, their check-in check-out dates and times , payment details is shown in scheduler. 
 
-![6](/uploads/9235ee5abba5d315e8983c1ba21db2d0/6.png)
+![6](https://user-images.githubusercontent.com/69115040/141168312-6db0d4b4-c5f3-4a58-af74-d8f466acda9a.png)
 
-![7](/uploads/22768b30841d4b259fba44b25855a89d/7.png)
+![7](https://user-images.githubusercontent.com/69115040/141168346-38ad4328-9aad-46cf-8201-8120d9b705a8.png)
 
 
 #### - Edge cases: If check-in date is last date of the month than a small slot with smaller font size with maximum information possible is made.
 
-![8](/uploads/74a9ac58e2649a45a89351b6feb58ad6/8.png)
+![8](https://user-images.githubusercontent.com/69115040/141168410-46e8e527-5b3b-4463-90de-15317ffdfbdd.png)
 
 
 #### - Drag and Drop Feature
 
 Before
 
-![9](/uploads/9fd11b33fb362cb9c60f72d5081e4ee9/9.png)
+![9](https://user-images.githubusercontent.com/69115040/141168444-e6657485-d39d-4538-b348-14ca1c96971a.png)
 
 After
 
-![10](/uploads/d253039764a7d56ec1722746da9f6152/10.png)
+![10](https://user-images.githubusercontent.com/69115040/141168489-0548510b-3276-4e49-825b-ddf634650be2.png)
 
 
 
