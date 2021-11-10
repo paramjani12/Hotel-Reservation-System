@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- browser icon -->
+    <link rel="icon" href="images/location.png">
+    <!-- bootstrap css file -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- css file -->
+    <link rel="stylesheet" href="style/style.css">
+    <title>Hotel Reservation System</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">
+          <!-- website logo -->
+          <img src="images/location.png" width="30" height="30" alt="">
+        </a>
+        <!-- this is for month and year that is displayed in the navbar -->
+        <span id="ourtime"></span>
+        <form class="form-inline">
+          <!-- check-in button in navbar -->
+          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#roomModal">Check-In</button>
+          <!-- assign service button in navbar -->
+          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#serviceModal">Assign Service</button>
+          &nbsp; 
+        </form>
+        <!-- check-in modal -->
+        <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">General Info</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Room Sharing</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Other Info</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Rate Info</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Extra Charges</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Payment Details</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Folio Summary</a>
+                  </li>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <!-- <form id = "roomForm"> -->
+                  <div class="mb-3">
+                    <label class="form-label"style="font-weight:bold">Personal Information</label>
+                    <div class="row mb-2">
+                      <div class="col">
+                        <input type="text" class="form-control" id="firstname" placeholder="First name" aria-label="First name" required>
+                      </div>
+                      <div class="col">
+                        <input type="text" class="form-control" id="lastname" placeholder="Last name" aria-label="Last name" >
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <input type="text" class="form-control" id="roomnumber" placeholder="Room number" aria-label="Room number" required>
+                      </div>
+                      <div class="col">
+                        <input type="text" class="form-control" id="contactnumber" placeholder="Contact number" aria-label="Contact number" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label"style="font-weight:bold"> Stay Information</label>
+                    <div class="input-group mb-2">
+                      <span class="input-group-text">Check-in & Check-out</span>
+                      <input type="date" id="checkin" aria-label="check in" class="form-control" required>
+                      <input type="time" aria-label="check in time" id="checkintime" class="form-control" required>
+                      <input type="date" id="checkout" aria-label="check out" class="form-control" required>
+                      <input type="time" aria-label="check out time" id="checkouttime" class="form-control" required>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <input type="number" class="form-control" id="numberofnights" placeholder="No. of Night(s)" aria-label="no of night" min="1" required>
+                      </div>
+                      <div class="col">
+                        <input type="number" class="form-control" id="adults" placeholder="Adults" aria-label="adults" min="1">
+                      </div>
+                      <div class="col">
+                        <input type="number" class="form-control" id="children" placeholder="Children" aria-label="children" min="0">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label"style="font-weight:bold">Payment Information</label>
+                    <div class="row">
+                      <div class="col">
+                        <select class="form-select" id="paymentmethod" aria-label="payment method" required>
+                          <option value="NA" selected>Payment Method</option>
+                          <option value="Card">Card</option>
+                          <option value="Cash">Cash</option>
+                          <option value="Partial Paid">Partial Paid</option>
+                          <option value="Paid">Paid</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <input type="number" class="form-control" id="card" maxlength="16" minlength="16" placeholder="Card Number" aria-label="card number" >
+                      </div>
+
+                      <div class="col">
+                        <select class="form-select" id="cardtype" aria-label="card type">
+                          <option selected>Card Type</option>
+                          <option value="Mastercard">Mastercard</option>
+                          <option value="Visa">Visa</option>
+                          <option value="American Express">American Express</option>
+                          <option value="Citibank">Citibank</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <div class="input-group">
+                          <span class="input-group-text">Expiry</span>
+                          <input type="month" id="expiry" aria-label="expiry" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label"style="font-weight:bold"> Tariff Information</label>
+                    <div class="input-group">
+                      <span class="input-group-text">Total Charges</span>
+                      <input type="number" id="totalcharges" aria-label="total Charges" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text">Discount</span>
+                      <input type="number" id="discount" aria-label="discount" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text">Total Tax</span>
+                      <input type="number" id="totaltax" aria-label="total tax" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text">Total Rate</span>
+                      <input type="number" id="totalrate" aria-label="total rate" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text">Extra Charges</span>
+                      <input type="number" id="extracharges" aria-label="extra charges" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text" style="font-weight:bold">Total</span>
+                      <input type="number" id="total" aria-label="total" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text">Flat Discount</span>
+                      <input type="number" id="flatdiscount" aria-label="flat discount" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text">Amount Paid</span>
+                      <input type="number" id="amountpaid" aria-label="amount paid" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text">Deposit</span>
+                      <input type="number" id="deposit" aria-label="deposit" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text">Round Off</span>
+                      <input type="number" id="roundoff" aria-label="round off" class="form-control">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text"style="font-weight:bold"> Balance</span>
+                      <input type="number" id="balance" aria-label="balance" class="form-control">
+                    </div>
+                  </div>
+                  <button type="submit" id="checkedin" class="btn btn-primary">Submit</button>
+                <!-- </form> -->
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- assign service modal -->
+        <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="serviceModalLabel">Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Room number</label>
+                  <div class="row">
+                    <div class="col">
+                      <input type="number" class="form-control" id="roomno" aria-label="roomno" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"> Service Task</label>
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" class="form-control" id="servicetask" aria-label="service task" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"> Service Schedule</label>
+                  <div class="input-group">
+                    <span class="input-group-text">Start & End timings</span>
+                    <input type="time" aria-label="start time" id="starttime" class="form-control" required>
+                    <input type="time" aria-label="end time" id="endtime" class="form-control" required>
+                  </div>
+                </div>
+                <button type="submit" id="assignservice" class="btn btn-primary">Submit</button>
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- index page is divided into two divs part1 and part2. part1 has two sub divs in form of tables that is lefttable and center table -->
+    <div class="part1">
+      <!-- left most table in index page that contains room icon, number and status  -->
+      <table class="lefttable">
+        <thead class="headingcolor">
+          <tr class="special">
+            <th colspan="2">Room Types</th>
+            <th>Room No.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="center">
+            <td>
+              <img src="images/single-bed.png" class="imghotel" alt=>
+            </td>
+            <td>Single-Bed Room</td>
+            <td>101 <button type="button" class="btn btn-success btn-sm" disabled>Ready</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/double-bed.png"  class="imghotel"alt=>
+            </td>
+            <td>Double-Bed Room</td>
+            <td>102 <button type="button" class="btn btn-warning btn-sm" disabled>Cleanup</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/double-bed.png"  class="imghotel"alt= >
+            </td>
+            <td>Double-Bed Room</td>
+            <td>103 <button type="button" class="btn btn-danger btn-sm" disabled>Dirty</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/bed.png"  class="imghotel"alt="">
+            </td>
+            <td>Royal Suite Room</td>
+            <td>201 <button type="button" class="btn btn-success btn-sm" disabled>Ready</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/dinner.png"  class="imghotel"alt="">
+            </td>
+            <td>Family Room</td>
+            <td>202 <button type="button" class="btn btn-success btn-sm" disabled>Ready</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/double-bed.png"  class="imghotel"alt="">
+            </td>
+            <td>Double-Bed Room</td>
+            <td>301 <button type="button" class="btn btn-danger btn-sm" disabled>Dirty</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/single-bed.png"  class="imghotel"alt="">
+            </td>
+            <td>Single-Bed Room</td>
+            <td>302 <button type="button" class="btn btn-success btn-sm" disabled>Ready</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/hotel.png"  class="imghotel"alt="">
+            </td>
+            <td>Superior Room</td>
+            <td>303 <button type="button" class="btn btn-warning btn-sm" disabled>Cleanup</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/single-bed.png"  class="imghotel"alt="">
+            </td>
+            <td>Single-Bed Room</td>
+            <td>401 <button type="button" class="btn btn-success btn-sm" disabled>Ready</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/double-bed.png"  class="imghotel"alt="">
+            </td>
+            <td>Double-Bed Room</td>
+            <td>402 <button type="button" class="btn btn-success btn-sm" disabled>Ready</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/double-bed.png"  class="imghotel"alt="">
+            </td>
+            <td>Double-Bed Room</td>
+            <td>403 <button type="button" class="btn btn-warning btn-sm" disabled>Cleanup</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/double-bed.png"  class="imghotel"alt="">
+            </td>
+            <td>Double-Bed Room</td>
+            <td>404 <button type="button" class="btn btn-success btn-sm" disabled>Ready</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/bed.png" class="imghotel" alt="">
+            </td>
+            <td>Royal Suite Room</td>
+            <td>501 <button type="button" class="btn btn-success btn-sm" disabled>Ready</button></td>
+          </tr>
+          <tr class="center">
+            <td>
+              <img src="images/hotel.png"  class="imghotel"alt="">
+            </td>
+            <td>Superior Room</td>
+            <td>502 <button type="button" class="btn btn-success btn-sm" disabled>Ready</button></td>
+          </tr>
+        </tbody>
+      </table><!-- center table in index page contains reservation details like guest name their check-in check-out date and time, payment details, etc  --><table class="centertable table table-bordered">
+        <thead class="headingcolor">
+          <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>10</th>
+            <th>11</th>
+            <th>12</th>
+            <th>13</th>
+            <th>14</th>
+            <th>15</th>
+            <th>16</th>
+            <th>17</th>
+            <th>18</th>
+            <th>19</th>
+            <th>20</th>
+            <th>21</th>
+            <th>22</th>
+            <th>23</th>
+            <th>24</th>
+            <th>25</th>
+            <th>26</th>
+            <th>27</th>
+            <th>28</th>
+            <th>29</th>
+            <th>30</th>
+            <th>31</th>
+          </tr>
+        </thead>
+        <tbody class=""> 
+          <tr class="center" id="row1">
+            <td id="1room1" draggable="true" class="empty"> <span class='icon-large  icon-info-sign roominfo' rel="tooltip" data-placement='right'></span></td>
+            <td id="2room1" draggable="true" class="empty"></td>
+            <td id="3room1" draggable="true" class="empty"></td>
+            <td id="4room1" draggable="true" class="empty"></td>
+            <td id="5room1" draggable="true" class="empty"></td>
+            <td id="6room1" draggable="true" class="empty"></td>
+            <td id="7room1" draggable="true" class="empty"></td>
+            <td id="8room1" draggable="true" class="empty"></td>
+            <td id="9room1" draggable="true" class="empty"></td>
+            <td id="10room1" draggable="true" class="empty"></td>
+            <td id="11room1" draggable="true" class="empty"></td>
+            <td id="12room1" draggable="true" class="empty"></td>
+            <td id="13room1" draggable="true" class="empty"></td>
+            <td id="14room1" draggable="true" class="empty"></td>
+            <td id="15room1" draggable="true" class="empty"></td>
+            <td id="16room1" draggable="true" class="empty"></td>
+            <td id="17room1" draggable="true" class="empty"></td>
+            <td id="18room1" draggable="true" class="empty"></td>
+            <td id="19room1" draggable="true" class="empty"></td>
+            <td id="20room1" draggable="true" class="empty"></td>
+            <td id="21room1" draggable="true" class="empty"></td>
+            <td id="22room1" draggable="true" class="empty"></td>
+            <td id="23room1" draggable="true" class="empty"></td>
+            <td id="24room1" draggable="true" class="empty"></td>
+            <td id="25room1" draggable="true" class="empty"></td>
+            <td id="26room1" draggable="true" class="empty"></td>
+            <td id="27room1" draggable="true" class="empty"></td>
+            <td id="28room1" draggable="true" class="empty"></td>
+            <td id="29room1" draggable="true" class="empty"></td>
+            <td id="30room1" draggable="true" class="empty"></td>
+            <td id="31room1" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row2">
+            <td id="1room2" draggable="true" class="empty"></td>
+            <td id="2room2" draggable="true" class="empty"></td>
+            <td id="3room2" draggable="true" class="empty"></td>
+            <td id="4room2" draggable="true" class="empty"></td>
+            <td id="5room2" draggable="true" class="empty"></td>
+            <td id="6room2" draggable="true" class="empty"></td>
+            <td id="7room2" draggable="true" class="empty"></td>
+            <td id="8room2" draggable="true" class="empty"></td>
+            <td id="9room2" draggable="true" class="empty"></td>
+            <td id="10room2" draggable="true" class="empty"></td>
+            <td id="11room2" draggable="true" class="empty"></td>
+            <td id="12room2" draggable="true" class="empty"></td>
+            <td id="13room2" draggable="true" class="empty"></td>
+            <td id="14room2" draggable="true" class="empty"></td>
+            <td id="15room2" draggable="true" class="empty"></td>
+            <td id="16room2" draggable="true" class="empty"></td>
+            <td id="17room2" draggable="true" class="empty"></td>
+            <td id="18room2" draggable="true" class="empty"></td>
+            <td id="19room2" draggable="true" class="empty"></td>
+            <td id="20room2" draggable="true" class="empty"></td>
+            <td id="21room2" draggable="true" class="empty"></td>
+            <td id="22room2" draggable="true" class="empty"></td>
+            <td id="23room2" draggable="true" class="empty"></td>
+            <td id="24room2" draggable="true" class="empty"></td>
+            <td id="25room2" draggable="true" class="empty"></td>
+            <td id="26room2" draggable="true" class="empty"></td>
+            <td id="27room2" draggable="true" class="empty"></td>
+            <td id="28room2" draggable="true" class="empty"></td>
+            <td id="29room2" draggable="true" class="empty"></td>
+            <td id="30room2" draggable="true" class="empty"></td>
+            <td id="31room2" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row3">
+            <td id="1room3" draggable="true" class="empty"></td>
+            <td id="2room3" draggable="true" class="empty"></td>
+            <td id="3room3" draggable="true" class="empty"></td>
+            <td id="4room3" draggable="true" class="empty"></td>
+            <td id="5room3" draggable="true" class="empty"></td>
+            <td id="6room3" draggable="true" class="empty"></td>
+            <td id="7room3" draggable="true" class="empty"></td>
+            <td id="8room3" draggable="true" class="empty"></td>
+            <td id="9room3" draggable="true" class="empty"></td>
+            <td id="10room3" draggable="true" class="empty"></td>
+            <td id="11room3" draggable="true" class="empty"></td>
+            <td id="12room3" draggable="true" class="empty"></td>
+            <td id="13room3" draggable="true" class="empty"></td>
+            <td id="14room3" draggable="true" class="empty"></td>
+            <td id="15room3" draggable="true" class="empty"></td>
+            <td id="16room3" draggable="true" class="empty"></td>
+            <td id="17room3" draggable="true" class="empty"></td>
+            <td id="18room3" draggable="true" class="empty"></td>
+            <td id="19room3" draggable="true" class="empty"></td>
+            <td id="20room3" draggable="true" class="empty"></td>
+            <td id="21room3" draggable="true" class="empty"></td>
+            <td id="22room3" draggable="true" class="empty"></td>
+            <td id="23room3" draggable="true" class="empty"></td>
+            <td id="24room3" draggable="true" class="empty"></td>
+            <td id="25room3" draggable="true" class="empty"></td>
+            <td id="26room3" draggable="true" class="empty"></td>
+            <td id="27room3" draggable="true" class="empty"></td>
+            <td id="28room3" draggable="true" class="empty"></td>
+            <td id="29room3" draggable="true" class="empty"></td>
+            <td id="30room3" draggable="true" class="empty"></td>
+            <td id="31room3" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row4">
+            <td id="1room4" draggable="true" class="empty"></td>
+            <td id="2room4" draggable="true" class="empty"></td>
+            <td id="3room4" draggable="true" class="empty"></td>
+            <td id="4room4" draggable="true" class="empty"></td>
+            <td id="5room4" draggable="true" class="empty"></td>
+            <td id="6room4" draggable="true" class="empty"></td>
+            <td id="7room4" draggable="true" class="empty"></td>
+            <td id="8room4" draggable="true" class="empty"></td>
+            <td id="9room4" draggable="true" class="empty"></td>
+            <td id="10room4" draggable="true" class="empty"></td>
+            <td id="11room4" draggable="true" class="empty"></td>
+            <td id="12room4" draggable="true" class="empty"></td>
+            <td id="13room4" draggable="true" class="empty"></td>
+            <td id="14room4" draggable="true" class="empty"></td>
+            <td id="15room4" draggable="true" class="empty"></td>
+            <td id="16room4" draggable="true" class="empty"></td>
+            <td id="17room4" draggable="true" class="empty"></td>
+            <td id="18room4" draggable="true" class="empty"></td>
+            <td id="19room4" draggable="true" class="empty"></td>
+            <td id="20room4" draggable="true" class="empty"></td>
+            <td id="21room4" draggable="true" class="empty"></td>
+            <td id="22room4" draggable="true" class="empty"></td>
+            <td id="23room4" draggable="true" class="empty"></td>
+            <td id="24room4" draggable="true" class="empty"></td>
+            <td id="25room4" draggable="true" class="empty"></td>
+            <td id="26room4" draggable="true" class="empty"></td>
+            <td id="27room4" draggable="true" class="empty"></td>
+            <td id="28room4" draggable="true" class="empty"></td>
+            <td id="29room4" draggable="true" class="empty"></td>
+            <td id="30room4" draggable="true" class="empty"></td>
+            <td id="31room4" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row5">
+            <td id="1room5" draggable="true" class="empty"></td>
+            <td id="2room5" draggable="true" class="empty"></td>
+            <td id="3room5" draggable="true" class="empty"></td>
+            <td id="4room5" draggable="true" class="empty"></td>
+            <td id="5room5" draggable="true" class="empty"></td>
+            <td id="6room5" draggable="true" class="empty"></td>
+            <td id="7room5" draggable="true" class="empty"></td>
+            <td id="8room5" draggable="true" class="empty"></td>
+            <td id="9room5" draggable="true" class="empty"></td>
+            <td id="10room5" draggable="true" class="empty"></td>
+            <td id="11room5" draggable="true" class="empty"></td>
+            <td id="12room5" draggable="true" class="empty"></td>
+            <td id="13room5" draggable="true" class="empty"></td>
+            <td id="14room5" draggable="true" class="empty"></td>
+            <td id="15room5" draggable="true" class="empty"></td>
+            <td id="16room5" draggable="true" class="empty"></td>
+            <td id="17room5" draggable="true" class="empty"></td>
+            <td id="18room5" draggable="true" class="empty"></td>
+            <td id="19room5" draggable="true" class="empty"></td>
+            <td id="20room5" draggable="true" class="empty"></td>
+            <td id="21room5" draggable="true" class="empty"></td>
+            <td id="22room5" draggable="true" class="empty"></td>
+            <td id="23room5" draggable="true" class="empty"></td>
+            <td id="24room5" draggable="true" class="empty"></td>
+            <td id="25room5" draggable="true" class="empty"></td>
+            <td id="26room5" draggable="true" class="empty"></td>
+            <td id="27room5" draggable="true" class="empty"></td>
+            <td id="28room5" draggable="true" class="empty"></td>
+            <td id="29room5" draggable="true" class="empty"></td>
+            <td id="30room5" draggable="true" class="empty"></td>
+            <td id="31room5" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row6">
+            <td id="1room6" draggable="true" class="empty"></td>
+            <td id="2room6" draggable="true" class="empty"></td>
+            <td id="3room6" draggable="true" class="empty"></td>
+            <td id="4room6" draggable="true" class="empty"></td>
+            <td id="5room6" draggable="true" class="empty"></td>
+            <td id="6room6" draggable="true" class="empty"></td>
+            <td id="7room6" draggable="true" class="empty"></td>
+            <td id="8room6" draggable="true" class="empty"></td>
+            <td id="9room6" draggable="true" class="empty"></td>
+            <td id="10room6" draggable="true" class="empty"></td>
+            <td id="11room6" draggable="true" class="empty"></td>
+            <td id="12room6" draggable="true" class="empty"></td>
+            <td id="13room6" draggable="true" class="empty"></td>
+            <td id="14room6" draggable="true" class="empty"></td>
+            <td id="15room6" draggable="true" class="empty"></td>
+            <td id="16room6" draggable="true" class="empty"></td>
+            <td id="17room6" draggable="true" class="empty"></td>
+            <td id="18room6" draggable="true" class="empty"></td>
+            <td id="19room6" draggable="true" class="empty"></td>
+            <td id="20room6" draggable="true" class="empty"></td>
+            <td id="21room6" draggable="true" class="empty"></td>
+            <td id="22room6" draggable="true" class="empty"></td>
+            <td id="23room6" draggable="true" class="empty"></td>
+            <td id="24room6" draggable="true" class="empty"></td>
+            <td id="25room6" draggable="true" class="empty"></td>
+            <td id="26room6" draggable="true" class="empty"></td>
+            <td id="27room6" draggable="true" class="empty"></td>
+            <td id="28room6" draggable="true" class="empty"></td>
+            <td id="29room6" draggable="true" class="empty"></td>
+            <td id="30room6" draggable="true" class="empty"></td>
+            <td id="31room6" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row7">
+            <td id="1room7" draggable="true" class="empty"></td>
+            <td id="2room7" draggable="true" class="empty"></td>
+            <td id="3room7" draggable="true" class="empty"></td>
+            <td id="4room7" draggable="true" class="empty"></td>
+            <td id="5room7" draggable="true" class="empty"></td>
+            <td id="6room7" draggable="true" class="empty"></td>
+            <td id="7room7" draggable="true" class="empty"></td>
+            <td id="8room7" draggable="true" class="empty"></td>
+            <td id="9room7" draggable="true" class="empty"></td>
+            <td id="10room7" draggable="true" class="empty"></td>
+            <td id="11room7" draggable="true" class="empty"></td>
+            <td id="12room7" draggable="true" class="empty"></td>
+            <td id="13room7" draggable="true" class="empty"></td>
+            <td id="14room7" draggable="true" class="empty"></td>
+            <td id="15room7" draggable="true" class="empty"></td>
+            <td id="16room7" draggable="true" class="empty"></td>
+            <td id="17room7" draggable="true" class="empty"></td>
+            <td id="18room7" draggable="true" class="empty"></td>
+            <td id="19room7" draggable="true" class="empty"></td>
+            <td id="20room7" draggable="true" class="empty"></td>
+            <td id="21room7" draggable="true" class="empty"></td>
+            <td id="22room7" draggable="true" class="empty"></td>
+            <td id="23room7" draggable="true" class="empty"></td>
+            <td id="24room7" draggable="true" class="empty"></td>
+            <td id="25room7" draggable="true" class="empty"></td>
+            <td id="26room7" draggable="true" class="empty"></td>
+            <td id="27room7" draggable="true" class="empty"></td>
+            <td id="28room7" draggable="true" class="empty"></td>
+            <td id="29room7" draggable="true" class="empty"></td>
+            <td id="30room7" draggable="true" class="empty"></td>
+            <td id="31room7" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row8">
+            <td id="1room8" draggable="true" class="empty"></td>
+            <td id="2room8" draggable="true" class="empty"></td>
+            <td id="3room8" draggable="true" class="empty"></td>
+            <td id="4room8" draggable="true" class="empty"></td>
+            <td id="5room8" draggable="true" class="empty"></td>
+            <td id="6room8" draggable="true" class="empty"></td>
+            <td id="7room8" draggable="true" class="empty"></td>
+            <td id="8room8" draggable="true" class="empty"></td>
+            <td id="9room8" draggable="true" class="empty"></td>
+            <td id="10room8" draggable="true" class="empty"></td>
+            <td id="11room8" draggable="true" class="empty"></td>
+            <td id="12room8" draggable="true" class="empty"></td>
+            <td id="13room8" draggable="true" class="empty"></td>
+            <td id="14room8" draggable="true" class="empty"></td>
+            <td id="15room8" draggable="true" class="empty"></td>
+            <td id="16room8" draggable="true" class="empty"></td>
+            <td id="17room8" draggable="true" class="empty"></td>
+            <td id="18room8" draggable="true" class="empty"></td>
+            <td id="19room8" draggable="true" class="empty"></td>
+            <td id="20room8" draggable="true" class="empty"></td>
+            <td id="21room8" draggable="true" class="empty"></td>
+            <td id="22room8" draggable="true" class="empty"></td>
+            <td id="23room8" draggable="true" class="empty"></td>
+            <td id="24room8" draggable="true" class="empty"></td>
+            <td id="25room8" draggable="true" class="empty"></td>
+            <td id="26room8" draggable="true" class="empty"></td>
+            <td id="27room8" draggable="true" class="empty"></td>
+            <td id="28room8" draggable="true" class="empty"></td>
+            <td id="29room8" draggable="true" class="empty"></td>
+            <td id="30room8" draggable="true" class="empty"></td>
+            <td id="31room8" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row9">
+            <td id="1room9" draggable="true" class="empty"></td>
+            <td id="2room9" draggable="true" class="empty"></td>
+            <td id="3room9" draggable="true" class="empty"></td>
+            <td id="4room9" draggable="true" class="empty"></td>
+            <td id="5room9" draggable="true" class="empty"></td>
+            <td id="6room9" draggable="true" class="empty"></td>
+            <td id="7room9" draggable="true" class="empty"></td>
+            <td id="8room9" draggable="true" class="empty"></td>
+            <td id="9room9" draggable="true" class="empty"></td>
+            <td id="10room9" draggable="true" class="empty"></td>
+            <td id="11room9" draggable="true" class="empty"></td>
+            <td id="12room9" draggable="true" class="empty"></td>
+            <td id="13room9" draggable="true" class="empty"></td>
+            <td id="14room9" draggable="true" class="empty"></td>
+            <td id="15room9" draggable="true" class="empty"></td>
+            <td id="16room9" draggable="true" class="empty"></td>
+            <td id="17room9" draggable="true" class="empty"></td>
+            <td id="18room9" draggable="true" class="empty"></td>
+            <td id="19room9" draggable="true" class="empty"></td>
+            <td id="20room9" draggable="true" class="empty"></td>
+            <td id="21room9" draggable="true" class="empty"></td>
+            <td id="22room9" draggable="true" class="empty"></td>
+            <td id="23room9" draggable="true" class="empty"></td>
+            <td id="24room9" draggable="true" class="empty"></td>
+            <td id="25room9" draggable="true" class="empty"></td>
+            <td id="26room9" draggable="true" class="empty"></td>
+            <td id="27room9" draggable="true" class="empty"></td>
+            <td id="28room9" draggable="true" class="empty"></td>
+            <td id="29room9" draggable="true" class="empty"></td>
+            <td id="30room9" draggable="true" class="empty"></td>
+            <td id="31room9" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row10">
+            <td id="1room10" draggable="true" class="empty"></td>
+            <td id="2room10" draggable="true" class="empty"></td>
+            <td id="3room10" draggable="true" class="empty"></td>
+            <td id="4room10" draggable="true" class="empty"></td>
+            <td id="5room10" draggable="true" class="empty"></td>
+            <td id="6room10" draggable="true" class="empty"></td>
+            <td id="7room10" draggable="true" class="empty"></td>
+            <td id="8room10" draggable="true" class="empty"></td>
+            <td id="9room10" draggable="true" class="empty"></td>
+            <td id="10room10" draggable="true" class="empty"></td>
+            <td id="11room10" draggable="true" class="empty"></td>
+            <td id="12room10" draggable="true" class="empty"></td>
+            <td id="13room10" draggable="true" class="empty"></td>
+            <td id="14room10" draggable="true" class="empty"></td>
+            <td id="15room10" draggable="true" class="empty"></td>
+            <td id="16room10" draggable="true" class="empty"></td>
+            <td id="17room10" draggable="true" class="empty"></td>
+            <td id="18room10" draggable="true" class="empty"></td>
+            <td id="19room10" draggable="true" class="empty"></td>
+            <td id="20room10" draggable="true" class="empty"></td>
+            <td id="21room10" draggable="true" class="empty"></td>
+            <td id="22room10" draggable="true" class="empty"></td>
+            <td id="23room10" draggable="true" class="empty"></td>
+            <td id="24room10" draggable="true" class="empty"></td>
+            <td id="25room10" draggable="true" class="empty"></td>
+            <td id="26room10" draggable="true" class="empty"></td>
+            <td id="27room10" draggable="true" class="empty"></td>
+            <td id="28room10" draggable="true" class="empty"></td>
+            <td id="29room10" draggable="true" class="empty"></td>
+            <td id="30room10" draggable="true" class="empty"></td>
+            <td id="31room10" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row11">
+            <td id="1room11" draggable="true" class="empty"></td>
+            <td id="2room11" draggable="true" class="empty"></td>
+            <td id="3room11" draggable="true" class="empty"></td>
+            <td id="4room11" draggable="true" class="empty"></td>
+            <td id="5room11" draggable="true" class="empty"></td>
+            <td id="6room11" draggable="true" class="empty"></td>
+            <td id="7room11" draggable="true" class="empty"></td>
+            <td id="8room11" draggable="true" class="empty"></td>
+            <td id="9room11" draggable="true" class="empty"></td>
+            <td id="10room11" draggable="true" class="empty"></td>
+            <td id="11room11" draggable="true" class="empty"></td>
+            <td id="12room11" draggable="true" class="empty"></td>
+            <td id="13room11" draggable="true" class="empty"></td>
+            <td id="14room11" draggable="true" class="empty"></td>
+            <td id="15room11" draggable="true" class="empty"></td>
+            <td id="16room11" draggable="true" class="empty"></td>
+            <td id="17room11" draggable="true" class="empty"></td>
+            <td id="18room11" draggable="true" class="empty"></td>
+            <td id="19room11" draggable="true" class="empty"></td>
+            <td id="20room11" draggable="true" class="empty"></td>
+            <td id="21room11" draggable="true" class="empty"></td>
+            <td id="22room11" draggable="true" class="empty"></td>
+            <td id="23room11" draggable="true" class="empty"></td>
+            <td id="24room11" draggable="true" class="empty"></td>
+            <td id="25room11" draggable="true" class="empty"></td>
+            <td id="26room11" draggable="true" class="empty"></td>
+            <td id="27room11" draggable="true" class="empty"></td>
+            <td id="28room11" draggable="true" class="empty"></td>
+            <td id="29room11" draggable="true" class="empty"></td>
+            <td id="30room11" draggable="true" class="empty"></td>
+            <td id="31room11" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row12">
+            <td id="1room12" draggable="true" class="empty"></td>
+            <td id="2room12" draggable="true" class="empty"></td>
+            <td id="3room12" draggable="true" class="empty"></td>
+            <td id="4room12" draggable="true" class="empty"></td>
+            <td id="5room12" draggable="true" class="empty"></td>
+            <td id="6room12" draggable="true" class="empty"></td>
+            <td id="7room12" draggable="true" class="empty"></td>
+            <td id="8room12" draggable="true" class="empty"></td>
+            <td id="9room12" draggable="true" class="empty"></td>
+            <td id="10room12" draggable="true" class="empty"></td>
+            <td id="11room12" draggable="true" class="empty"></td>
+            <td id="12room12" draggable="true" class="empty"></td>
+            <td id="13room12" draggable="true" class="empty"></td>
+            <td id="14room12" draggable="true" class="empty"></td>
+            <td id="15room12" draggable="true" class="empty"></td>
+            <td id="16room12" draggable="true" class="empty"></td>
+            <td id="17room12" draggable="true" class="empty"></td>
+            <td id="18room12" draggable="true" class="empty"></td>
+            <td id="19room12" draggable="true" class="empty"></td>
+            <td id="20room12" draggable="true" class="empty"></td>
+            <td id="21room12" draggable="true" class="empty"></td>
+            <td id="22room12" draggable="true" class="empty"></td>
+            <td id="23room12" draggable="true" class="empty"></td>
+            <td id="24room12" draggable="true" class="empty"></td>
+            <td id="25room12" draggable="true" class="empty"></td>
+            <td id="26room12" draggable="true" class="empty"></td>
+            <td id="27room12" draggable="true" class="empty"></td>
+            <td id="28room12" draggable="true" class="empty"></td>
+            <td id="29room12" draggable="true" class="empty"></td>
+            <td id="30room12" draggable="true" class="empty"></td>
+            <td id="31room12" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row13">
+            <td id="1room13" draggable="true" class="empty"></td>
+            <td id="2room13" draggable="true" class="empty"></td>
+            <td id="3room13" draggable="true" class="empty"></td>
+            <td id="4room13" draggable="true" class="empty"></td>
+            <td id="5room13" draggable="true" class="empty"></td>
+            <td id="6room13" draggable="true" class="empty"></td>
+            <td id="7room13" draggable="true" class="empty"></td>
+            <td id="8room13" draggable="true" class="empty"></td>
+            <td id="9room13" draggable="true" class="empty"></td>
+            <td id="10room13" draggable="true" class="empty"></td>
+            <td id="11room13" draggable="true" class="empty"></td>
+            <td id="12room13" draggable="true" class="empty"></td>
+            <td id="13room13" draggable="true" class="empty"></td>
+            <td id="14room13" draggable="true" class="empty"></td>
+            <td id="15room13" draggable="true" class="empty"></td>
+            <td id="16room13" draggable="true" class="empty"></td>
+            <td id="17room13" draggable="true" class="empty"></td>
+            <td id="18room13" draggable="true" class="empty"></td>
+            <td id="19room13" draggable="true" class="empty"></td>
+            <td id="20room13" draggable="true" class="empty"></td>
+            <td id="21room13" draggable="true" class="empty"></td>
+            <td id="22room13" draggable="true" class="empty"></td>
+            <td id="23room13" draggable="true" class="empty"></td>
+            <td id="24room13" draggable="true" class="empty"></td>
+            <td id="25room13" draggable="true" class="empty"></td>
+            <td id="26room13" draggable="true" class="empty"></td>
+            <td id="27room13" draggable="true" class="empty"></td>
+            <td id="28room13" draggable="true" class="empty"></td>
+            <td id="29room13" draggable="true" class="empty"></td>
+            <td id="30room13" draggable="true" class="empty"></td>
+            <td id="31room13" draggable="true" class="empty"></td>
+          </tr>
+          <tr class="center" id="row14">
+            <td id="1room14" draggable="true" class="empty"></td>
+            <td id="2room14" draggable="true" class="empty"></td>
+            <td id="3room14" draggable="true" class="empty"></td>
+            <td id="4room14" draggable="true" class="empty"></td>
+            <td id="5room14" draggable="true" class="empty"></td>
+            <td id="6room14" draggable="true" class="empty"></td>
+            <td id="7room14" draggable="true" class="empty"></td>
+            <td id="8room14" draggable="true" class="empty"></td>
+            <td id="9room14" draggable="true" class="empty"></td>
+            <td id="10room14" draggable="true" class="empty"></td>
+            <td id="11room14" draggable="true" class="empty"></td>
+            <td id="12room14" draggable="true" class="empty"></td>
+            <td id="13room14" draggable="true" class="empty"></td>
+            <td id="14room14" draggable="true" class="empty"></td>
+            <td id="15room14" draggable="true" class="empty"></td>
+            <td id="16room14" draggable="true" class="empty"></td>
+            <td id="17room14" draggable="true" class="empty"></td>
+            <td id="18room14" draggable="true" class="empty"></td>
+            <td id="19room14" draggable="true" class="empty"></td>
+            <td id="20room14" draggable="true" class="empty"></td>
+            <td id="21room14" draggable="true" class="empty"></td>
+            <td id="22room14" draggable="true" class="empty"></td>
+            <td id="23room14" draggable="true" class="empty"></td>
+            <td id="24room14" draggable="true" class="empty"></td>
+            <td id="25room14" draggable="true" class="empty"></td>
+            <td id="26room14" draggable="true" class="empty"></td>
+            <td id="27room14" draggable="true" class="empty"></td>
+            <td id="28room14" draggable="true" class="empty"></td>
+            <td id="29room14" draggable="true" class="empty"></td>
+            <td id="30room14" draggable="true" class="empty"></td>
+            <td id="31room14" draggable="true" class="empty"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><div class="part3">
+      <!-- right most table in index page that contains total room status  -->
+      <table class="righttable">
+        <thead class="headingcolor">
+          <tr>
+            <th>Status</th>
+            <th>No. of Rooms</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dirty</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Reserved</td>
+            <td>29</td>
+          </tr>
+          <tr>
+            <td>Occupied</td>
+            <td>25</td>
+          </tr>
+          <tr>
+            <td>Check-in</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>Check-out</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Out Of Order</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- jquery link -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- bootsrap javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- javascript file -->
+    <script src="script/script.js"></script>
+  </body>
+</html>
