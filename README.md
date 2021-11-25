@@ -27,7 +27,7 @@ A Hotel Reservation System having scheduling calendar component and room statuse
 
 ### **Project implementation**
 
-#### - This is the home page with has navbar with both features guest check-in and assign service. The three can be easily visualised. First component has room numbers and its types, second component is the scheduler and third component has all rooms’ status information. 
+#### - This is the home page which has navbar with both features guest check-in and assign service. The three can be easily visualised. First component has room numbers and its types, second component is the scheduler and third component has all rooms’ status information. 
 
 ![1](https://user-images.githubusercontent.com/69115040/141167533-956b8857-5938-4431-a18d-bb9516ab08a5.png)
 
